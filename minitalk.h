@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   minitalk.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: daafonso <daafonso@student.42.fr>          +#+  +:+       +#+        */
+/*   By: daniel149afonso <daniel149afonso@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/02 17:18:56 by daafonso          #+#    #+#             */
-/*   Updated: 2025/02/02 18:16:17 by daafonso         ###   ########.fr       */
+/*   Updated: 2025/02/07 16:45:41 by daniel149af      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINITALK_H
 # define MINITALK_H
 
+# include "ft_printf/ft_printf.h"
 # include <unistd.h>
 # include <stdlib.h>
-# include <stdio.h>
 # include <signal.h>
 #endif
