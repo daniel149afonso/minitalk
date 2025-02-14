@@ -3,21 +3,52 @@
 /*                                                        :::      ::::::::   */
 /*   client.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: daafonso <daafonso@student.42.fr>          +#+  +:+       +#+        */
+/*   By: daniel149afonso <daniel149afonso@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/02 17:24:37 by daafonso          #+#    #+#             */
-/*   Updated: 2025/02/02 20:12:48 by daafonso         ###   ########.fr       */
+/*   Updated: 2025/02/14 14:47:35 by daniel149af      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 
-int	main(void)
+void	ft_send_message(int pid, char *msg)
 {
-	__pid_t	pid;
+	int		bit;
+	int		i;
+	char	c;
 
-	pid = 1234;
-	kill(pid, SIGUSR1);
-	printf("My PID is : %d\n", pid);
+	i = 0;
+	while (msg[i])
+	{
+		bit = 7;
+		c = msg[i];
+		while (bit >= 0)
+		{
+			if (((c >> bit) & 1) == 1)
+			{
+				kill(pid, SIGUSR1);
+				usleep(1);
+			}
+			else
+			{
+				kill(pid, SIGUSR2);
+				usleep(1);
+			}
+			bit--;
+		}
+		i++;
+	}
+}
+
+int	main(int argc, char **argv)
+{
+	int	pid;
+
+	if (argc == 3)
+	{
+		pid = ft_atoi(argv[1]);
+		ft_send_message(pid, argv[2]);
+	}
 	return (0);
 }
