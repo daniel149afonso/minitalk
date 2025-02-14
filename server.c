@@ -6,7 +6,7 @@
 /*   By: daniel149afonso <daniel149afonso@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/02 17:24:25 by daafonso          #+#    #+#             */
-/*   Updated: 2025/02/14 16:33:27 by daniel149af      ###   ########.fr       */
+/*   Updated: 2025/02/14 16:43:33 by daniel149af      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	handle_signal(int signal)
 	//ft_print_binary(bit_acc);
 	if (bit_count == 8)
 	{
-		//ft_printf("Character received: %c ", bit_acc);
+		//ft_printf("Character received: %c \n", bit_acc);
 		ft_printf("%c", bit_acc);
 		bit_acc = 0;
 		bit_count = 0;

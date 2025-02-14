@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   client.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: daniel149afonso <daniel149afonso@studen    +#+  +:+       +#+        */
+/*   By: daafonso <daafonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/02 17:24:37 by daafonso          #+#    #+#             */
-/*   Updated: 2025/02/14 14:47:35 by daniel149af      ###   ########.fr       */
+/*   Updated: 2025/02/14 15:52:00 by daafonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,12 @@ void	ft_send_message(int pid, char *msg)
 			if (((c >> bit) & 1) == 1)
 			{
 				kill(pid, SIGUSR1);
-				usleep(1);
+				usleep(100);
 			}
 			else
 			{
 				kill(pid, SIGUSR2);
-				usleep(1);
+				usleep(100);
 			}
 			bit--;
 		}
