@@ -6,7 +6,7 @@
 /*   By: daniel149afonso <daniel149afonso@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/02 17:24:25 by daafonso          #+#    #+#             */
-/*   Updated: 2025/02/14 14:48:57 by daniel149af      ###   ########.fr       */
+/*   Updated: 2025/02/14 16:33:27 by daniel149af      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,11 @@ void	handle_signal(int signal)
 	if (signal == SIGUSR1)
 		bit_acc |= 1; //ajoute 1 (si SIGUSR1) remplace le 0 par defaut
 	bit_count++;
-	ft_print_binary(bit_acc);
+	//ft_print_binary(bit_acc);
 	if (bit_count == 8)
 	{
-		ft_printf("Character received: %c ", bit_acc);
+		//ft_printf("Character received: %c ", bit_acc);
+		ft_printf("%c", bit_acc);
 		bit_acc = 0;
 		bit_count = 0;
 	}
