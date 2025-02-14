@@ -6,13 +6,13 @@
 /*   By: daafonso <daafonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/02 17:24:25 by daafonso          #+#    #+#             */
-/*   Updated: 2025/02/10 19:26:11 by daafonso         ###   ########.fr       */
+/*   Updated: 2025/02/14 15:37:29 by daafonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 
-void	print_binary(int num)
+void	ft_print_binary(int num)
 {
 	int	i;
 
@@ -30,14 +30,14 @@ void	handle_signal(int signal)
 	static int	bit_acc;
 	static int	bit_count;
 
-	bit_acc = bit_acc << 1; //décalage à gauche
+	bit_acc = bit_acc << 1; //décalage à gauche ajoute par défaut 0
 	if (signal == SIGUSR1)
-		bit_acc |= 1; //ajoute 1 (si SIGUSR1)
+		bit_acc |= 1; //ajoute 1 (si SIGUSR1) remplace le 0 par defaut
 	bit_count++;
-    print_binary(bit_acc);
+	ft_print_binary(bit_acc);
 	if (bit_count == 8)
 	{
-		ft_printf("Character received: %c", bit_acc);
+		ft_printf("Character received: %c \n", bit_acc);
 		bit_acc = 0;
 		bit_count = 0;
 	}
@@ -55,7 +55,9 @@ int	main(int argc, char **argv)
 	signal(SIGUSR1, handle_signal);
 	signal(SIGUSR2, handle_signal);
 	while (1)
+	{
 		pause();
+	}
 	return (0);
 }
 
