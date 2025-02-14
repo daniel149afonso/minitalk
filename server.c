@@ -6,7 +6,7 @@
 /*   By: daniel149afonso <daniel149afonso@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/02 17:24:25 by daafonso          #+#    #+#             */
-/*   Updated: 2025/02/14 19:52:22 by daniel149af      ###   ########.fr       */
+/*   Updated: 2025/02/14 21:40:13 by daniel149af      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ int	main(int argc, char **argv)
 		return (1);
 	}
 	ft_printf("Server's ID : %d\n", getpid());
+	ft_printf("Waiting for a message...\n");
 	signal(SIGUSR1, handle_signal);
 	signal(SIGUSR2, handle_signal);
 	while (1)
