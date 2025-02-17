@@ -6,7 +6,7 @@
 /*   By: daniel149afonso <daniel149afonso@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/02 17:24:37 by daafonso          #+#    #+#             */
-/*   Updated: 2025/02/14 20:04:38 by daniel149af      ###   ########.fr       */
+/*   Updated: 2025/02/17 16:45:38 by daniel149af      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,11 @@ void	ft_send_message(int pid, char *msg)
 	int		bit;
 	int		i;
 	char	c;
+	int		len;
 
 	i = 0;
-	while (msg[i])
+	len = ft_strlen_v2(msg) + 1;
+	while (i < len)
 	{
 		bit = 7;
 		c = msg[i];
@@ -29,7 +31,7 @@ void	ft_send_message(int pid, char *msg)
 				kill(pid, SIGUSR1);
 			else
 				kill(pid, SIGUSR2);
-			usleep(100);
+			usleep(500);
 			bit--;
 		}
 		i++;
@@ -47,3 +49,4 @@ int	main(int argc, char **argv)
 	}
 	return (0);
 }
+//
