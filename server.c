@@ -3,45 +3,51 @@
 /*                                                        :::      ::::::::   */
 /*   server.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: daniel149afonso <daniel149afonso@studen    +#+  +:+       +#+        */
+/*   By: daafonso <daafonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/02 17:24:25 by daafonso          #+#    #+#             */
-/*   Updated: 2025/02/17 17:03:41 by daniel149af      ###   ########.fr       */
+/*   Updated: 2025/02/19 22:45:55 by daafonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 
-void	ft_print_binary(int num)
-{
-	int	i;
+static char	*buffer = NULL;;
 
-	i = 7;
-	while (i >= 0)
-	{
-		ft_printf("%d", (num >> i) & 1);
-		i--;
-	}
-	ft_printf("\n");
+void	handle_message(char c)
+{
+	char		*temp;
+
+	if (!buffer)
+		buffer = ft_strdup("");
+	temp = ft_strjoin(buffer, (char []){c, '\0'});
+	free(buffer);
+	buffer = temp;
 }
 
-void	handle_signal(int signal)
+void	handle_signal(int signal, siginfo_t *info, void *context)
 {
 	static int	bit_acc;
 	static int	bit_count;
 	char		c;
 
+	(void)context;
+	if (bit_count == 0)
+		bit_acc = 0;
 	bit_acc = bit_acc << 1;
 	if (signal == SIGUSR1)
 		bit_acc |= 1;
 	bit_count++;
 	if (bit_count == 8)
 	{
-		c = bit_acc;
-		if (c != '\0')
-			ft_printf("%c", c);
+		c = (char)bit_acc;
+		handle_message(c);
 		if (c == '\0')
-			ft_printf("\nMessage received!\n\n");
+		{
+			ft_printf("%s\n", buffer);
+			free(buffer);
+			buffer = NULL;
+		}
 		bit_acc = 0;
 		bit_count = 0;
 	}
@@ -49,20 +55,23 @@ void	handle_signal(int signal)
 
 int	main(int argc, char **argv)
 {
+	struct sigaction	sa;
+
 	(void)argv;
 	if (argc != 1)
 	{
 		ft_printf("Error only one argument is required!\n");
 		return (1);
 	}
+	sa.sa_handler = handle_signal;
+	sa.sa_flags = SA_SIGINFO;
+	sigemptyset(&sa.sa_mask);
+	sigaction(SIGUSR1, &sa, NULL);
+	sigaction(SIGUSR2, &sa, NULL);
 	ft_printf("Server's ID : %d\n", getpid());
 	ft_printf("Waiting for a message...\n");
 	while (1)
-	{
-		signal(SIGUSR1, handle_signal);
-		signal(SIGUSR2, handle_signal);
 		pause();
-	}
 	return (0);
 }
 
