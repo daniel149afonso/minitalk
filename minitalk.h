@@ -6,7 +6,7 @@
 /*   By: daafonso <daafonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/02 17:18:56 by daafonso          #+#    #+#             */
-/*   Updated: 2025/02/19 22:11:30 by daafonso         ###   ########.fr       */
+/*   Updated: 2025/02/21 21:46:45 by daafonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,5 +19,9 @@
 # include "ft_printf/ft_printf.h"
 # include "libft/libft.h"
 
-
+typedef struct s_client
+{
+	int	bit_confirmed;
+	int	message_confirmed;
+}	t_client;
 #endif
