@@ -2,3 +2,4 @@
 *.a
 client
 server
+.vscode
