@@ -22,4 +22,4 @@ Clone the repository and compile the project using `make`:
 git clone https://github.com/yourusername/minitalk.git
 cd minitalk
 make
-´´´
+```
