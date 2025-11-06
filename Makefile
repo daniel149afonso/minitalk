@@ -1,80 +1,72 @@
 # ================== VARIABLES ==================
-# Nom de l'exécutable
-NAMES = server
 NAMEC = client
-PRINTF = libftprintf.a
-
-SRCS = server.c
-SRCC = client.c
-
-OBJS	=	$(SRCS:.c=.o)
-OBJC	=	$(SRCC:.c=.o)
-
-# Nom des exécutables bonus
-NAMES_BONUS = server_bonus
+NAMES = server
 NAMEC_BONUS = client_bonus
+NAMES_BONUS = server_bonus
 
-SRCS_BONUS = server_bonus.c
-SRCC_BONUS = client_bonus.c
+DIR = src
+SRCS = $(DIR)/server.c
+SRCC = $(DIR)/client.c
+SRCS_BONUS = $(DIR)/server_bonus.c
+SRCC_BONUS = $(DIR)/client_bonus.c
 
-OBJS_BONUS	=	$(SRCS_BONUS:.c=.o)
-OBJC_BONUS	=	$(SRCC_BONUS:.c=.o)
+OBJS = $(SRCS:.c=.o)
+OBJC = $(SRCC:.c=.o)
+OBJS_BONUS = $(SRCS_BONUS:.c=.o)
+OBJC_BONUS = $(SRCC_BONUS:.c=.o)
 
-# Compilation
-CC			= 		gcc
-CFLAGS		= 		-Wall -Wextra -Werror
+CC = gcc
+CFLAGS = -Wall -Wextra -Werror
 
-# Libft et MiniLibX
-LIBFT_DIR	= 		./libft
-LIBFT		= 		$(LIBFT_DIR)/libft.a
+LIBFT_DIR = ./libft
+LIBFT = $(LIBFT_DIR)/libft.a
+PRINTF_DIR = ./ft_printf
+PRINTF = $(PRINTF_DIR)/libftprintf.a
 
-PRINTF_DIR		= 		./ft_printf
-PRINTF		= 		$(PRINTF_DIR)/libftprintf.a
+# ================== RULES ==================
+all: $(NAMEC) $(NAMES)
+	@echo "\033[1;32m✔ Compilation successful!\033[0m"
 
-# ================== REGLES ==================
-all:		$(NAMEC) $(NAMES)
+$(NAMES): $(OBJS) $(LIBFT) $(PRINTF)
+	@$(CC) $(CFLAGS) $(OBJS) -L$(LIBFT_DIR) -L$(PRINTF_DIR) -lft -lftprintf -o $@
+	@echo "Built: $@"
 
-# Compilation de l'exécutable
-$(NAMES):	$(OBJS) $(LIBFT) $(PRINTF)
-			$(CC) $(CFLAGS) $(OBJS) -L$(LIBFT_DIR) -L$(PRINTF_DIR) -lft -lftprintf -o $(NAMES)
+$(NAMEC): $(OBJC) $(LIBFT) $(PRINTF)
+	@$(CC) $(CFLAGS) $(OBJC) -L$(LIBFT_DIR) -L$(PRINTF_DIR) -lft -lftprintf -o $@
+	@echo "Built: $@"
 
-$(NAMEC):	$(OBJC) $(LIBFT) $(PRINTF)
-			$(CC) $(CFLAGS) $(OBJC) -L$(LIBFT_DIR) -L$(PRINTF_DIR) -lft -lftprintf -o $(NAMEC)
-
-# Compilation des exécutables bonus
-bonus:		$(NAMEC_BONUS) $(NAMES_BONUS)
+bonus: $(NAMEC_BONUS) $(NAMES_BONUS)
+	@echo "\033[1;32m✔ Bonus compiled successfully!\033[0m"
 
 $(NAMES_BONUS): $(OBJS_BONUS) $(LIBFT) $(PRINTF)
-			$(CC) $(CFLAGS) $(OBJS_BONUS) -L$(LIBFT_DIR) -L$(PRINTF_DIR) -lft -lftprintf -o $(NAMES_BONUS)
+	@$(CC) $(CFLAGS) $(OBJS_BONUS) -L$(LIBFT_DIR) -L$(PRINTF_DIR) -lft -lftprintf -o $@
+	@echo "Built: $@"
 
 $(NAMEC_BONUS): $(OBJC_BONUS) $(LIBFT) $(PRINTF)
-			$(CC) $(CFLAGS) $(OBJC_BONUS) -L$(LIBFT_DIR) -L$(PRINTF_DIR) -lft -lftprintf -o $(NAMEC_BONUS)
+	@$(CC) $(CFLAGS) $(OBJC_BONUS) -L$(LIBFT_DIR) -L$(PRINTF_DIR) -lft -lftprintf -o $@
+	@echo "Built: $@"
 
-# Compilation des fichiers .o
 %.o: %.c
-			$(CC) $(CFLAGS) -c $< -o $@
+	@$(CC) $(CFLAGS) -c $< -o $@
 
-# Compilation de la Libft
 $(LIBFT):
-			@make -C $(LIBFT_DIR)
+	@make -C $(LIBFT_DIR)
 
-# Compilation de Ft_printf
 $(PRINTF):
-			@make -C $(PRINTF_DIR)
+	@make -C $(PRINTF_DIR)
 
-# Nettoyage des fichiers objets
 clean:
-			$(RM) $(OBJS) $(OBJC) $(OBJS_BONUS) $(OBJC_BONUS)
-			@make -C $(LIBFT_DIR) clean
-			@make -C $(PRINTF_DIR) clean
+	@$(RM) $(OBJS) $(OBJC) $(OBJS_BONUS) $(OBJC_BONUS)
+	@make -C $(LIBFT_DIR) clean
+	@make -C $(PRINTF_DIR) clean
+	@echo "🧹 Cleaned objects."
 
-# Nettoyage complet
-fclean:		clean
-			$(RM) $(NAMES) $(NAMEC) $(NAMES_BONUS) $(NAMEC_BONUS)
-			@make -C $(LIBFT_DIR) fclean
-			@make -C $(PRINTF_DIR) fclean
+fclean: clean
+	@$(RM) $(NAMEC) $(NAMES) $(NAMEC_BONUS) $(NAMES_BONUS)
+	@make -C $(LIBFT_DIR) fclean
+	@make -C $(PRINTF_DIR) fclean
+	@echo "🗑 Full clean done."
 
-# Recompile tout
-re:			fclean all
+re: fclean all
 
-.PHONY:		all clean fclean re bonus
+.PHONY: all clean fclean re bonus
