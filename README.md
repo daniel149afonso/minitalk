@@ -19,7 +19,7 @@ To run this project, you’ll need:
 Clone the repository and compile the project using `make`:
 
 ```bash
-git clone https://github.com/yourusername/minitalk.git
+git clone https://github.com/daniel149afonso/minitalk.git
 cd minitalk
 make
 ```
